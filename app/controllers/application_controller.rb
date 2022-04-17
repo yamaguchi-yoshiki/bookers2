@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  # 未ログインでtopにリダイレクト
-  #before_action :authenticate_user!, except: [:top]
+  # 未ログインではtopとaboutのみアクセスできる
+  before_action :authenticate_user!, except: [:top, :about]
   # devise
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resouce)
-    about_path
+    root_path
   end
 
   protected
